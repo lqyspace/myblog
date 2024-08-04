@@ -1,0 +1,511 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>svn入门 | XiaoYun</title><meta name="keywords" content="svn"><meta name="author" content="Xiao Yun,15543495640m@sina.cn"><meta name="copyright" content="Xiao Yun"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="svn入门"><meta name="application-name" content="svn入门"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="svn入门"><meta property="og:url" content="https://beistu.xyz/2024/01/12/svn/svn%E5%85%A5%E9%97%A8/index.html"><meta property="og:site_name" content="XiaoYun"><meta property="og:description" content="介绍了如何在服务器上使用命令创建仓库相关的教程"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://cdn.jsdelivr.net/npm/lqyspace-assets/post/svn/20240112194936.png"><meta property="article:author" content="Xiao Yun"><meta property="article:tag" content="技术咖,XiaoYun,博客,XiaoYun博客,冷全阳,xiaoyun,HEXO XiaoYun"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/lqyspace-assets/post/svn/20240112194936.png"><meta name="description" content="介绍了如何在服务器上使用命令创建仓库相关的教程"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/npm/lqyspace-assets/assets/favicon32.ico"><link rel="canonical" href="https://beistu.xyz/2024/01/12/svn/svn%E5%85%A5%E9%97%A8/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 再坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋, 宝贝~","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Xiao Yun","link":"链接: ","source":"来源: XiaoYun","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'XiaoYun',
+  title: 'svn入门',
+  postAI: '',
+  pageFillDescription: 'SVN安装, 在windows下安装SVN, 在Ubuntu下安装SVN, SVN的基本操作, 创建版本库, 启动版本库, 删除版本库, 配置多仓库与权限控制, 配置多仓库, 权限控制, 1、svnserve.conf, 2、passwd, 3、authz, 权限继承, authz用户分组, authz版本库路径, authz配置的其他注意事项, 父目录的r权限对子目录w权限的影响, 默认权限, 只读r权限的副作用, 总结安装安装在下安装准备的安装文件下载地址下载完成后默认安装就行或者安装在自己定义的盘符上查看目录结构把安装目录里的目录添加到路径中在命令行窗口中输入查看是否安装正常在下安装接下来进入正题我们的目的是在服务器上部署服务器接下来选择来安装首先查看系统中是否安装了如果没有安装命令将报告命令找不到的错误我们可以使用命令进行安装安装完成之后执行命令的基本操作接下来的操作全都是在系统中以命令行的方式进行创建版本库文件夹目录使用以上的方式创建版本库以后你可以在你的文件夹目录下看到下面的配置文件启动版本库目录端口号守护模式让这个进程可以在后台运行版本库的根目录或者项目的根目录指定监听端口号不加此参数默认监听由于配置方式的不一样的启动有两种访问方式我们可以使用来查看参数列表接下来我们来查看一下的两种启动方式方式一直接指定到版本库简称为单库方式在这种情况下一个只能为一个版本库工作那么此时配置文件中对版本库权限的配置可以这样写表示版本库的根目录当然我们可以对版本库下的某一个文件或者文件夹进行单独的权限控制比如表示版本库的根目录下文件夹而组内的用户对这个文件夹具有的权限方式二指定版本库的上级目录简称为多库方式在这种情况下一个可以为文件夹下的多个版本库工作配置文件中对版本库权限的配置可以这样写如果此时你还用则表示所有库的根目录同理表示所有库的根目录下的目录所示访问的时候可使用类似这样的即可访问这个版本库删除版本库删除版本库时要具有删除仓库的权限其次要停止对仓库的所有活动如提交更新等删除版本有两种方式使用命令行删除仓库例如如果仓库位于服务器上请从服务器上删除仓库目录配置多仓库与权限控制配置多仓库在实际的开发过程中我们可能需要对多个仓库或者多个项目进行监管那么我们如何进行监管呢通过进行仓库管理但是监管指令只能进行单个文件夹而不能同时监管多个仓库因此我们可以通过监管版本库的上一级目录的方式来监管多个仓库具体方式如下权限控制首先需要开启权限功能在每一个仓库中都有一个文件夹里面有三个文件是一定需要配置的授权文件告诉哪些用户具有哪些权限认证文件标识当前系统中某个仓库具有哪些用户以及相应的密码服务配置文件服务器的相关配置对和的更改可以立马生效了但是对配置需要重启服务才可以生效这个文件是服务进程的配置文件我们逐行进行解释没有经过授权的用户具有的权限经过授权的用户具有的权限授权的权限有三种形式其中表示不具备任何权限表示只具有可读的权限表示具有可读可写的权限接下来就是告诉服务有哪些认证用户即这个文件里保存着用户名和密码然后就是授权文件这个文件告诉服务哪些用户具有哪些权限上述中的和两个文件可以作为多个代码库共享使用我们只要将他们放在公共目录下比如说放在目录下然后每个代码库中的文件中使用如下的语句这样就可以让多个代码库共享一个用户密码目录控制配置这在有效情况下是非常有用的接下来就是它是指版本库的认证域即在登录时提示的认证域名称若两个版本库的认证域相同建议使用相同的用户口令数据文件说明版本库认证域在使用客户端访问服务器时若需要用户登录则提示如下信息如果此时的配置是之后输入用户名和密码即可下面给一个示例上述配置文件的设定是非授权用户不具备访问权限授权用户可对版本库进行读写用户口令的文件的相对位置在上两层目录文件夹下权限配置文件的相对位置在上两层目录文件夹下版本库的认证域为用户口令文件是由的配置项指定默认值为目录中的该文件仅有一个配置段组成配置行格式如下用户名口令注意配置行中的口令是未经过任何处理的明文示例该配置文件中共配置了两个用户分别是和其中的用户口令是用户口令是权限配置文件是由的配置项指定默认值为目录中的文件该配置文件由一个和若干个版本库路径组成配置段中配置行格式如下用户组用户列表用户列表由若干个用户组或用户名构成用户组和用户名之间用逗号隔开引用用户组的时候要在前面使用版本库路径权限段的段名格式如下版本库名路径如版本库路径下的那么路径权限段的写法就是可省略段名中的版本库名若省略版本库名则该版本库路径权限对所有版本库中相同路径的访问控制都有效如段名为的版本库路径权限设置了所有引用该权限配置文件的版本库中目录为的访问权限版本库路径权限段中配置行格式有如下三种格式用户名权限用户组权限权限其中表示其余任何用户权限的范围为空和分别表示对该版本库无任何权限具有读权限具有读写权限注意每行位置只能配置单个用户或单个用户组示例在上述配置文件中定义了一个用户组该用户组包含用户和然后定义了个版本库路径权限段其中版本库只有用户组可读写其他用户无任何权限版本库中路径只有用户有读写权限其他用户只有可读权限权限继承我们知道的的配置项可以分为两种分别是和版本库路径这两个配置段用户分组下面的用户分组仅供参考任何想要查看所有文档的非本部门认识教师分组博士分组项目负责人一般工作者撰写文档我们注意到这个账号同时存在和这两个分组里这就意味着将比拥有更多的权限因为是允许我们这样的设置的版本库路径接着我们对项目根目录做了限制该目录只允许事业部的老师才能修改其他的人只能眼巴巴的看着表示这个目录结构的相对根结点或者说是项目的根目录其中的字样其实就是代码库的名称即通过命令创建出来的库这里的表示一个组名不是用户名不过也可以改写成下面的格式意义也一样表示除了上面提到的那些人之外的其余所有人则表示那些人只能读不能写接下来如果我们想给事业部的一般工作人员开放日志目录的读写权限这个子目录的设置就很有特色因为从需求分析中我们可以知道这个子目录的权限要比其父目录小它不允许除指定之外的其他人访问在这段设置中我们需要注意以下几点由于子目录会继承父目录的权限也就是说事业部的老师也是具有对该目录的权限的最后一行的不能被删除由于在父目录里除了指定用户具有权限其他的用户只能可读由于子目录可以继承父目录的权限因此除了子目录里面指定的用户具有外其他的用户应该不具备访问权限因此不能删除否则其他的用户对这个子目录也具有可读权限这里之所以加上这个分组就是因为存在上述的解释如果我们没有明确的给指明可读写的权限那么这个分组的用户就只具有可读的权限如果众位看官中间有谁玩过防火墙可能会感觉上面的配置和防火墙很相似不过这里有一点与防火墙不一样那就是各个配置行之间并不存在先后顺序一说也就是说如果我们将本段配置的这一行挪到最前面完全不影响配置的最终效果接下来我们看另一个配置这里主要的看点就是组里面包含了一个账号她同时也在这个分组里也就是说将具备对和的两个目录读写权限配置的其他注意事项父目录的权限对子目录权限的影响把这个问题单独提出来是因为在及其以前的版本里面有一个即某个账号为了对某个子目录具备写权限则必须在其父目录里面具备读权限因此现在使用及其更高的版本就方便了那些想在一个代码库里面存放多个相互独立的项目的管理员来分配权限了比如给老师们分配整个项目的管理权限而事业部只是其中一个部门则我们可以这样做这样对于所以事业部的人员来说就可以将这个当做根目录进行日常的维护而完全不用管它是不是子目录并且当有少数人具有好奇心的人想试着一个的时候马上就会得到一个警告默认权限如果我们不对某个目录设置任何权限会怎么样呢改成这样就相当于什么都没有设置在的版本号及其以上此时是禁止任何访问的也就是说如果你想要让某个人访问某个目录你一定要显式地指明这一点这个策略看起来是与防火墙的策略一致的只读权限的副作用如果我们对某个目录只设置的权限那么任何都只能对此目录可读任何人都不允许改动包括删除改名和新增除非手动更改这个权限总结在本文中我们介绍了服务的配置方法其中对和的更改可以立马生效并不用重新启动但是对的更改需要重新启动才可以生效需要强调的是本文介绍的配置文件只对服务有效即客户端通过前缀为或的访问版本库有效而通过或的无效参考资料使用教程与版本控制官方版本控制中文',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-16 16:36:34',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.0.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://beistu.xyz/" title="博客"><img class="back-menu-item-icon" src="https://cdn.jsdelivr.net/npm/lqyspace-assets/assets/avatar.jpg" alt="博客"/><span class="back-menu-item-text">博客</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/lqyspace" title="GitHub"><img class="back-menu-item-icon" src="https://cdn.jsdelivr.net/npm/lqyspace-assets/assets/avatar.jpg" alt="GitHub"/><span class="back-menu-item-text">GitHub</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://emojipedia.org/zh" title="Emojipedia"><img class="back-menu-item-icon" src="https://bu.dusays.com/2021/01/15/d439ba7842564.png" alt="Emojipedia"/><span class="back-menu-item-text">Emojipedia</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://getemoji.com/" title="GeteMoji"><img class="back-menu-item-icon" src="https://bu.dusays.com/2021/01/15/c37a625de51f1.png" alt="GeteMoji"/><span class="back-menu-item-text">GeteMoji</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://emotion.xiaokang.me/" title="表情包速查"><img class="back-menu-item-icon" src="https://bu.dusays.com/2021/01/15/fceedf2b7a79f.png" alt="表情包速查"/><span class="back-menu-item-text">表情包速查</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">XiaoYun</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/algorithm/"><i class="anzhiyufont anzhiyu-icon-dice-d20 faa-tada" style="font-size: 0.9em;"></i><span> 算法刷题</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/hexo/" style="font-size: 1.05rem;">hexo<sup>1</sup></a><a href="/tags/npm/" style="font-size: 1.05rem;">npm<sup>1</sup></a><a href="/tags/svn/" style="font-size: 1.05rem;">svn<sup>3</sup></a><a href="/tags/%E6%95%B0%E4%BD%8DDP/" style="font-size: 1.05rem;">数位DP<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/01/"><span class="card-archive-list-date">一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/" itemprop="url">代码仓库</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/svn/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>svn</span></a></span></div></div><h1 class="post-title" itemprop="name headline">svn入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-01-12T11:31:15.000Z" title="发表于 2024-01-12 19:31:15">2024-01-12</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-01-16T08:36:34.630Z" title="更新于 2024-01-16 16:36:34">2024-01-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">3.7k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="svn入门"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为辽宁"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>辽宁</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://cdn.jsdelivr.net/npm/lqyspace-assets/post/svn/cropped-1920-1080-1330235.png"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://beistu.xyz/2024/01/12/svn/svn%E5%85%A5%E9%97%A8/"><header><a class="post-meta-categories" href="/categories/%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/" itemprop="url">代码仓库</a><a href="/tags/svn/" tabindex="-1" itemprop="url">svn</a><h1 id="CrawlerTitle" itemprop="name headline">svn入门</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Xiao Yun</span><time itemprop="dateCreated datePublished" datetime="2024-01-12T11:31:15.000Z" title="发表于 2024-01-12 19:31:15">2024-01-12</time><time itemprop="dateCreated datePublished" datetime="2024-01-16T08:36:34.630Z" title="更新于 2024-01-16 16:36:34">2024-01-16</time></header><div class="tip info"><p>SVN安装 </p>
+</div>
+<h1 id="SVN安装"><a href="#SVN安装" class="headerlink" title="SVN安装"></a>SVN安装</h1><h2 id="在windows下安装SVN"><a href="#在windows下安装SVN" class="headerlink" title="在windows下安装SVN"></a>在windows下安装SVN</h2><ul>
+<li><p>准备<code>svn</code>的安装文件</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/win32svn/">https://sourceforge.net/projects/win32svn/</a></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://fastly.jsdelivr.net/gh/lqyspace/mypic@master/img1/202401122013281.png" alt="image-20240112201304625"></p>
+<p>下载完成后，默认安装就行，或者安装在自己定义的盘符上。</p>
+</li>
+<li><p>查看目录结构</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://fastly.jsdelivr.net/gh/lqyspace/mypic@master/img1/202401122017378.png" alt="image-20240112201726340"></p>
+</li>
+<li><p>把<code>svn</code>安装目录里的<code>bin</code>目录添加到<code>path</code>路径中，在命令行窗口中输入 <code>svnserve --help</code>，查看是否安装正常。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://fastly.jsdelivr.net/gh/lqyspace/mypic@master/img1/202401122021270.png" alt="image-20240112202059575"></p>
+</li>
+</ul>
+<h2 id="在Ubuntu下安装SVN"><a href="#在Ubuntu下安装SVN" class="headerlink" title="在Ubuntu下安装SVN"></a>在Ubuntu下安装SVN</h2><p>接下来进入正题，我们的目的是在服务器上部署<code>SVN</code>服务器，接下来选择<code>Ubuntu</code>来安装<code>snv</code>。</p>
+<p>首先查看系统中是否安装了<code>svn</code>，如果没有安装<code>svn</code>，命令将报告<code>svn</code>命令找不到的错误。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@xiaoxiao:~<span class="comment"># svn --version</span></span><br><span class="line">The program <span class="string">&#x27;svn&#x27;</span> is currently not installed. You can install it by typing:</span><br><span class="line">apt-get install subversion</span><br></pre></td></tr></table></figure>
+<p>我们可以使用<code>apt-get</code>命令进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update -y</span><br><span class="line">sudo apt install subversion</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，执行<code>svn --version</code>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@xiaoxiao:~<span class="comment"># svn --version</span></span><br><span class="line">svn, version 1.8.13 (r1667537)</span><br><span class="line">   compiled Sep  8 2015, 14:59:01 on x86_64-pc-linux-gnu</span><br></pre></td></tr></table></figure>
+<h1 id="SVN的基本操作"><a href="#SVN的基本操作" class="headerlink" title="SVN的基本操作"></a>SVN的基本操作</h1><p>接下来的操作，全都是在<code>Ubuntu</code>系统中以命令行的方式进行。</p>
+<h2 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># svnadmin create 文件夹目录</span></span><br><span class="line">svnadmin create ~/svn/webapp</span><br></pre></td></tr></table></figure>
+<p>使用以上的方式创建版本库以后，你可以在你的文件夹目录下看到下面的配置文件：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://fastly.jsdelivr.net/gh/lqyspace/mypic@master/img1/202401122039469.png" alt="image-20231105215612255"></p>
+<h2 id="启动版本库"><a href="#启动版本库" class="headerlink" title="启动版本库"></a>启动版本库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># svnserve -d -r 目录 --listen-port 端口号</span></span><br><span class="line"><span class="comment"># -d：守护模式，让这个进程可以在后台运行</span></span><br><span class="line"><span class="comment"># -r：版本库的根目录或者项目的根目录</span></span><br><span class="line"><span class="comment"># --listen-port：指定svn监听端口号，不加此参数，svn默认监听3690</span></span><br><span class="line">svnserve -d -r ~/svn/webapp</span><br></pre></td></tr></table></figure>
+<p>由于<code>-r</code>配置方式的不一样，svn的启动有两种访问方式。</p>
+<p>我们可以使用<code>svnserve -h</code> 来查看参数列表。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://fastly.jsdelivr.net/gh/lqyspace/mypic@master/img1/202401122053109.png" alt="image-20240112205324050"></p>
+<p>接下来我们来查看一下<code>-r</code>的两种启动方式：</p>
+<p><strong>方式一：</strong><code>-r</code>直接指定到版本库（简称为单库svnserve方式）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve -d -r ~/svn/webapp</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，一个<code>svnserve</code>只能为一个版本库工作。</p>
+<p>那么此时<code>authz</code>配置文件中对版本库权限的配置可以这样写：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">groups</span>]</span><br><span class="line">admin=user1</span><br><span class="line">dev=user2</span><br><span class="line">[/]</span><br><span class="line">@admin=rw</span><br><span class="line">user2=r</span><br></pre></td></tr></table></figure>
+<p><code>/</code>表示版本库的根目录，当然我们可以对版本库下的某一个文件或者文件夹进行单独的权限控制，比如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">groups</span>]</span><br><span class="line">admin=user1</span><br><span class="line">dev=user2</span><br><span class="line">[/]</span><br><span class="line">@admin=rw</span><br><span class="line">user2=r</span><br><span class="line">[/log]</span><br><span class="line">@dev=rw</span><br></pre></td></tr></table></figure>
+<p><code>/log</code>表示版本库的根目录下<code>log</code>文件夹，而<code>dev</code>组内的用户对这个文件夹具有<code>rw</code>的权限。</p>
+<p><strong>方式二：</strong>指定版本库的上级目录（简称为多库svnserve方式）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve -d -r ~/svn</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，一个<code>svnserve</code>可以为<code>svn</code>文件夹下的多个版本库工作。</p>
+<p>authz配置文件中对版本库权限的配置可以这样写：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">groups</span>]</span><br><span class="line">admin=user1</span><br><span class="line">dev=user2</span><br><span class="line">[runoob:/]</span><br><span class="line">@admin=rw</span><br><span class="line">user2=r</span><br><span class="line"></span><br><span class="line">[runoob01:/]</span><br><span class="line">@admin=rw</span><br><span class="line">user2=r</span><br></pre></td></tr></table></figure>
+<p>如果此时你还用<code>[/]</code>，则表示所有库的根目录，同理，<code>[/src]</code>表示所有库的根目录下的src目录。</p>
+<p>所示访问的时候可使用类似这样的<code>URL：svn://127.0.0.1/webapp</code>，即可访问这个版本库。</p>
+<h2 id="删除版本库"><a href="#删除版本库" class="headerlink" title="删除版本库"></a>删除版本库</h2><p>删除版本库时要具有删除仓库的权限，其次要停止对仓库的所有活动（如提交、更新等）。</p>
+<p>删除版本有两种方式：</p>
+<ul>
+<li>使用<code>SVN</code>命令行删除仓库，例如：<code>svn delete svn://your-server/repos/your-repo</code></li>
+<li>如果仓库位于服务器上，请从服务器上删除仓库目录</li>
+</ul>
+<h1 id="配置多仓库与权限控制"><a href="#配置多仓库与权限控制" class="headerlink" title="配置多仓库与权限控制"></a>配置多仓库与权限控制</h1><h2 id="配置多仓库"><a href="#配置多仓库" class="headerlink" title="配置多仓库"></a>配置多仓库</h2><p>在实际的开发过程中，我们可能需要对多个仓库或者多个项目进行监管，那么我们如何进行监管呢？</p>
+<p>通过<code>svnserve</code>进行仓库管理，但是监管指令只能进行单个文件夹，而不能同时监管多个仓库。</p>
+<p>因此，我们可以通过监管版本库的上一级目录的方式来监管多个仓库，具体方式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve -d -r ~/svn</span><br></pre></td></tr></table></figure>
+<h2 id="权限控制"><a href="#权限控制" class="headerlink" title="权限控制"></a>权限控制</h2><p>首先需要开启权限功能。在每一个仓库中都有一个conf文件夹，里面有三个文件是一定需要配置的：</p>
+<ul>
+<li>authz：授权文件，告诉哪些用户具有哪些权限</li>
+<li>passwd：认证文件，标识当前<code>svn</code>系统中某个仓库具有哪些用户以及相应的密码</li>
+<li>svnserve.conf：服务配置文件，<code>svn</code>服务器的相关配置</li>
+</ul>
+<p>对<code>authz</code>和<code>passwd</code>的更改可以立马生效了，但是对<code>svnserve.conf</code>配置需要重启svn服务才可以生效。</p>
+<h3 id="1、svnserve-conf"><a href="#1、svnserve-conf" class="headerlink" title="1、svnserve.conf"></a>1、svnserve.conf</h3><p>这个文件是服务进程的配置文件，我们逐行进行解释：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">anon-access = none <span class="comment"># 没有经过授权的用户具有的权限</span></span><br><span class="line">auth-access = write <span class="comment"># 经过授权的用户具有的权限</span></span><br></pre></td></tr></table></figure>
+<p>授权的权限有三种形式：<code>none</code>、<code>read</code>、<code>write</code>，其中<code>none</code>表示不具备任何权限，<code>read</code>表示只具有可读的权限，<code>write</code>表示具有可读可写的权限。</p>
+<p>接下来就是告诉<code>svn</code>服务有哪些认证用户，即<code>passwd</code>，这个文件里保存着用户名和密码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">password-db = passwd</span><br></pre></td></tr></table></figure>
+<p>然后就是<code>authz</code>授权文件，这个文件告诉<code>svn</code>服务哪些用户具有哪些权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authz-db = authz</span><br></pre></td></tr></table></figure>
+<p>上述中的<code>passwd</code>和<code>authz</code>两个文件可以作为多个代码库共享使用，我们只要将他们放在公共目录下，比如说放在<code>~/svn</code>目录下，然后 每个代码库中的<code>svnserve.conf</code>文件中使用如下的语句：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">passwd-db = ../../passwd</span><br><span class="line">authz-db = ../../authz</span><br></pre></td></tr></table></figure>
+<p>这样就可以让多个代码库共享一个用户密码，目录控制配置，这在有效情况下是非常有用的。</p>
+<p>接下来就是<code>realm</code>，它是指版本库的认证域，即在登录时提示的认证域名称。若两个版本库的认证域相同，建议使用相同的用户口令数据文件。</p>
+<div class="note info flat"><p><strong>说明</strong></p>
+<p>版本库认证域</p>
+<p>在使用svn客户端访问<code>svnserve</code>服务器时，若需要用户登录，则提示如下信息：</p>
+<p>（如果此时realm的配置是：Hello, it’s the IMCT-vue-Repository.）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://fastly.jsdelivr.net/gh/lqyspace/mypic@master/img1/202401141633106.png" alt="image-20240114163335040"></p>
+<p>之后输入用户名和密码即可。</p>
+</div>
+<p>下面给一个<mark class="hl-label pink">示例</mark> ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[general]</span><br><span class="line">anon-access = none</span><br><span class="line">auth-access = write</span><br><span class="line">password-db = ../../passwd</span><br><span class="line">authz-db = ../../authz</span><br><span class="line">realm = imct-repository</span><br></pre></td></tr></table></figure>
+<p>上述配置文件的设定是非授权用户不具备访问权限；授权用户可对版本库进行读写；用户口令的文件的相对位置在上两层目录文件夹下；权限配置文件的相对位置在上两层目录文件夹下；版本库的认证域为<code>imct-repository</code>。</p>
+<h3 id="2、passwd"><a href="#2、passwd" class="headerlink" title="2、passwd"></a>2、passwd</h3><p>用户口令文件是由<code>svnserve.conf</code>的配置项<code>password-db</code>指定，默认值为<code>conf</code>目录中的<code>passwd</code>，该文件仅有一个<code>[users]</code>配置段组成。</p>
+<p>配置行格式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;用户名&gt; = &lt;口令&gt;</span><br></pre></td></tr></table></figure>
+<mark class="hl-label blue">注意：</mark> 配置行中的口令是未经过任何处理的明文。
+
+<br>
+
+<mark class="hl-label default">示例：pink</mark> 
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">users</span>]</span><br><span class="line">admin = admin</span><br><span class="line">adminsuper = root</span><br></pre></td></tr></table></figure>
+<p>该配置文件中共配置了两个用户，分别是“admin”和“adminsuper”。其中“admin”的用户口令是“admin”；“adminsuper”用户口令是“root”。</p>
+<h3 id="3、authz"><a href="#3、authz" class="headerlink" title="3、authz"></a>3、authz</h3><p>权限配置文件是由<code>svnserve.conf</code>的配置项<code>authz-db</code>指定，默认值为<code>conf</code>目录中的<code>authz</code>文件。该配置文件由一个<code>[groups]</code>和若干个版本库路径组成。</p>
+<p><code>[groups]</code>配置段中配置行格式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;用户组&gt; = &lt;用户列表&gt;</span><br></pre></td></tr></table></figure>
+<p>用户列表由若干个用户组或用户名构成，用户组和用户名之间用逗号<code>，</code>隔开，引用用户组的时候要在前面使用<code>@</code>。</p>
+<p><code>版本库路径</code>权限段的段名格式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&lt;版本库名&gt;:&lt;路径&gt;]</span><br></pre></td></tr></table></figure>
+<p>如版本库<code>imct-vue</code>路径下的<code>/log</code>，那么路径权限段的写法就是：<code>[imct-vue:/log]</code>。</p>
+<p>可省略段名中的版本库名，若省略版本库名，则该版本库路径权限对所有版本库中相同路径的访问控制都有效。</p>
+<p>如：段名为：<code>[/temp]</code>的版本库路径权限设置了所有引用该权限配置文件的版本库中目录为<code>/temp</code>的访问权限。</p>
+<p><code>版本库路径</code>权限段中配置行格式有如下三种格式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;用户名&gt; = &lt;权限&gt;</span><br><span class="line">&lt;用户组&gt; = &lt;权限&gt;</span><br><span class="line">* = &lt;权限&gt;</span><br></pre></td></tr></table></figure>
+<p>其中<code>*</code>表示其余任何用户；权限的范围为空，<code>r</code>和<code>rw</code>，分别表示对该版本库无任何权限，具有读权限，具有读写权限。</p>
+<mark class="hl-label blue">注意：</mark> 每行位置只能配置单个用户或单个用户组。
+
+<br>
+
+<mark class="hl-label pink">示例：</mark> 
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">groups</span>]</span><br><span class="line">admin_group = admin,adminsuper</span><br><span class="line"></span><br><span class="line">[admintools:/]</span><br><span class="line">@admin_group = rw</span><br><span class="line">* =</span><br><span class="line"></span><br><span class="line">[fxadmin:/home/adminsuper]</span><br><span class="line">adminsuper = rw</span><br><span class="line">* = r</span><br></pre></td></tr></table></figure>
+<p> 在上述配置文件中，定义了一个用户组”admin_group”，该用户组包含用户”admin”和”adminsuper”。然后定义了2个版本库路径权限段。其中，版本库”admintools”只有用户组”admin_group”可读写，其他用户无任何权限；版本库”fxadmin”中路径”/home/admin_group”只有用户”adminsuper”有读写权限，其他用户只有可读权限。</p>
+<h2 id="权限继承"><a href="#权限继承" class="headerlink" title="权限继承"></a>权限继承</h2><p>我们知道<code>authz</code>的的配置项可以分为两种，分别是<code>[groups]</code>和<code>版本库路径</code>这两个配置段。</p>
+<h3 id="authz用户分组"><a href="#authz用户分组" class="headerlink" title="authz用户分组"></a>authz用户分组</h3><p>下面的用户分组仅供参考：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">groups</span>]</span><br><span class="line"><span class="comment"># 任何想要查看所有文档的非本部门认识</span></span><br><span class="line">imct_eve = everybody</span><br><span class="line"></span><br><span class="line"><span class="comment"># 教师分组</span></span><br><span class="line">imct_tea = hu_tea, gao_tea, guo_tea</span><br><span class="line"></span><br><span class="line"><span class="comment"># 博士分组</span></span><br><span class="line">imct_doc = m_doc, g_doc, z_doc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 项目负责人</span></span><br><span class="line">imct_pri = lqy, lgw, ljh, xxy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一般工作者</span></span><br><span class="line">imct_admin = admin_coder, linda</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撰写文档</span></span><br><span class="line">imct_docs = linda</span><br></pre></td></tr></table></figure>
+<p>我们注意到，<code>linda</code>这个账号同时存在<code>“imct_admin”</code>和<code>“imct_docs”</code>这两个分组里，这就意味着<code>linda</code>将比<code>admin_coder</code>拥有更多的权限，因为<code>subversion</code>是允许我们这样的设置的。</p>
+<h3 id="authz版本库路径"><a href="#authz版本库路径" class="headerlink" title="authz版本库路径"></a>authz版本库路径</h3><p>接着，我们对项目根目录做了限制，该目录只允许IMCT事业部的老师才能修改，其他的人只能眼巴巴的看着：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[IMCT:/]</span><br><span class="line">@imct_tea = rw</span><br><span class="line">* = r</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>[IMCT:/]</code>表示这个目录结构的相对根结点，或者说是<code>IMCT</code>项目的根目录。其中的<code>IMCT</code>字样，其实就是代码库的名称，即通过 <code>svnadmin create</code>命令创建出来的<code>IMCT</code>库。</p>
+</li>
+<li><p>这里的<code>@</code>表示一个组名，不是用户名。不过也可以改写成下面的格式，意义也一样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[IMCT:/]</span><br><span class="line">hu_tea = rw</span><br><span class="line">gao_tea = rw</span><br><span class="line">guo_tea = rw</span><br><span class="line">* = r</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>*</code>表示除了上面提到的那些人之外的其余所有人</p>
+</li>
+<li><p><code>* = r</code>则表示那些人只能读，不能写</p>
+</li>
+</ul>
+<p>接下来，如果我们想给<code>IMCT</code>事业部的一般工作人员开放日志目录的读写权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[IMCT:/diary]</span><br><span class="line">@imct_admin = rw</span><br><span class="line">@imct_pri = rw</span><br><span class="line">* = </span><br></pre></td></tr></table></figure>
+<p>这个子目录的设置就很有特色，因为从需求分析中我们可以知道，这个子目录的权限要比其父目录小，它不允许除指定之外的其他人访问。在这段设置中，我们需要注意以下几点：</p>
+<ul>
+<li>由于子目录会继承父目录的权限，也就是说，<code>IMCT</code>事业部的老师也是具有对该目录的<code>rw</code>权限的</li>
+<li>最后一行的<code>*=</code>不能被删除，由于在父目录里除了指定用户具有<code>rw</code>权限，其他的用户只能可读，由于子目录可以继承父目录的权限，因此除了子目录里面指定的用户具有<code>rw</code>外，其他的用户应该不具备访问权限，因此<code>*=</code>不能删除，否则其他的用户对这个子目录也具有可读权限。</li>
+<li>这里之所以加上<code>imct_pri</code>这个分组，就是因为存在上述的解释。如果我们没有明确的给<code>imct_pri</code>指明可读写的权限，那么<code>imct_pri</code>这个分组的用户就只具有可读的权限。</li>
+<li>如果众位看官中间，有谁玩过防火墙，可能会感觉上面的配置和防火墙很相似。不过这里有一点与防火墙不一样，那就是各个配置行之间并不存在<code>先后顺序</code>一说。也就是说，如果我们将本段配置的<code>*=</code>这一行挪到最前面，完全不影响配置的最终效果。</li>
+</ul>
+<p>接下来，我们看另一个配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[IMCT:/ref]</span><br><span class="line">@imct_docs = rw</span><br><span class="line">* = r</span><br></pre></td></tr></table></figure>
+<p>这里主要的看点，就是<code>imct_docs</code>组里面包含了一个<code>linda</code>账号，她同时也在<code>admin_coder</code>这个分组里，也就是说，<code>linda</code>将具备对<code>/ref</code>和<code>/diary</code>的两个目录读写权限。</p>
+<h2 id="authz配置的其他注意事项"><a href="#authz配置的其他注意事项" class="headerlink" title="authz配置的其他注意事项"></a>authz配置的其他注意事项</h2><h3 id="父目录的r权限，对子目录w权限的影响"><a href="#父目录的r权限，对子目录w权限的影响" class="headerlink" title="父目录的r权限，对子目录w权限的影响"></a>父目录的<code>r</code>权限，对子目录<code>w</code>权限的影响</h3><p>把这个问题单独提出来是因为在1.3.1及其以前的版本里面，有一个<code>bug</code>，即某个账号为了对某个子目录具备写权限，则必须在其父目录里面具备读权限。</p>
+<p>因此现在使用1.3.2及其更高的版本，就方便了那些想在一个代码库里面存放多个相互独立的项目的管理员来分配权限了。</p>
+<p>比如给老师们分配整个项目的管理权限，而<code>SVN</code>事业部只是其中一个部门，则我们可以这样做：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[diary:/]</span><br><span class="line">@imct_tea = rw</span><br><span class="line"></span><br><span class="line">[diary:/SVN]</span><br><span class="line">@imct_admin = rw</span><br><span class="line">@imct_pri = rw</span><br></pre></td></tr></table></figure>
+<p>这样对于所以<code>SVN</code>事业部的人员来说，就可以将<code>svn://192.168.0.1/diary/SVN</code>这个URL当做根目录进行日常的维护，而完全不用管它是不是子目录，并且当有少数人具有好奇心的人想试着<code>checkout</code>一个<code>svn://192.168.0.1/diary</code>的时候，马上就会得到一个警告“Access denied”。</p>
+<h3 id="默认权限"><a href="#默认权限" class="headerlink" title="默认权限"></a>默认权限</h3><p>如果我们不对某个目录设置任何权限，会怎么样呢？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[diary:/]</span><br><span class="line">@imct_doc = rw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 改成</span></span><br><span class="line">[diary:/]</span><br></pre></td></tr></table></figure>
+<p>这样就相当于什么都没有设置。在<code>svn</code>的版本号1.3.2及其以上，此时是禁止任何访问的。也就是说，如果你想要让某个人访问某个目录，你一定要显式地指明这一点。这个策略看起来是与防火墙的策略一致的。</p>
+<h3 id="只读r权限的副作用"><a href="#只读r权限的副作用" class="headerlink" title="只读r权限的副作用"></a>只读<code>r</code>权限的副作用</h3><p>如果我们对某个目录只设置的<code>* = r</code>权限，那么任何都只能对此目录可读，任何人都不允许改动，包括<strong>删除</strong>，<strong>改名</strong>和<strong>新增</strong>。</p>
+<p>除非手动更改这个权限。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>在本文中，我们介绍了<code>svnserve</code>服务的配置方法，其中对<code>passwd</code>和<code>authz</code>的更改可以立马生效，并不用重新启动，但是对<code>svnserve.conf</code>的更改需要重新启动才可以生效。</li>
+<li>需要强调的是本文介绍的配置文件只对<code>svnserve</code>服务有效，即客户端通过前缀为<code>svn://</code>或<code>svn+ssh://</code>的URL访问版本库有效，而通过<code>http://</code>、<code>https://</code>或<code>file://</code>的URL无效。</li>
+</ul>
+<p>参考资料：</p>
+<p><a target="_blank" rel="noopener" href="https://www.rocschool.com/tutorial/rocschool-show-116.html">SVN使用教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://svnbook.red-bean.com/">Subversion与版本控制（官方）</a></p>
+<p><a target="_blank" rel="noopener" href="https://svnbook.red-bean.com/zh/1.8/">Subversion版本控制（中文1.8）</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0fabc3645e50">https://www.jianshu.com/p/0fabc3645e50</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jyl_sh/article/details/109450077">https://blog.csdn.net/jyl_sh/article/details/109450077</a></p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/assets/avatar.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/assets/avatar.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Xiao Yun</div><div class="post-copyright__author_desc">生活明朗，万物可爱</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://beistu.xyz/2024/01/12/svn/svn%E5%85%A5%E9%97%A8/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://beistu.xyz/2024/01/12/svn/svn%E5%85%A5%E9%97%A8/')">svn入门</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://beistu.xyz/2024/01/12/svn/svn%E5%85%A5%E9%97%A8/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=svn入门&amp;url=https://beistu.xyz/2024/01/12/svn/svn%E5%85%A5%E9%97%A8/&amp;pic=https://cdn.jsdelivr.net/npm/lqyspace-assets/post/svn/cropped-1920-1080-1330235.png" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://beistu.xyz" target="_blank">XiaoYun</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/svn/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>svn<span class="tagsPageCount">3</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/lqyspace-assets/assets/lanyangyang_20240114235127.png?_r_=41cb65a8-288f-2e37-e091-28e37f7db79d" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/01/hexo/npm%E5%9B%BE%E5%BA%8A%E4%BD%BF%E7%94%A8/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/post/npm/npm%E7%9A%84%E4%BD%BF%E7%94%A8/20240103204301.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">npm图床使用</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/14/svn/TortoiseSVN%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/post/svn/20240114233756.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">TortoiseSVN基本使用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2024/01/14/svn/TortoiseSVN%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="TortoiseSVN基本使用"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/post/svn/20240114233756.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-01-14</div><div class="title">TortoiseSVN基本使用</div></div></a></div><div><a href="/2024/01/16/svn/svn%E4%BB%93%E5%BA%93%E7%9B%AE%E5%BD%95%E8%AF%A6%E8%A7%A3/" title="svn仓库目录详解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/post/svn/20240117160237.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-01-16</div><div class="title">svn仓库目录详解</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/assets/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2021/01/15/eee46d6d5a9a7.png" alt="status"/></div></div><div class="author-info__description"><div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">这有关于<b style="color:#fff">产品、设计、开发</b>相关的问题和看法，还有<b style="color:#fff">文章翻译</b>和<b style="color:#fff">分享</b>。</div><div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">相信你可以在这里找到对你有用的<b style="color:#fff">知识</b>和<b style="color:#fff">教程</b>。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/about"><h1 class="author-info__name">Xiao Yun</h1><div class="author-info__desc">生活明朗，万物可爱</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/lqyspace" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="https://blog.csdn.net/qq_43206482" target="_blank" title="CSDN"><i class="anzhiyufont anzhiyu-icon-copyright"></i></a></div></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bullhorn anzhiyu-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来看我的博客鸭~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SVN%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">SVN安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8windows%E4%B8%8B%E5%AE%89%E8%A3%85SVN"><span class="toc-number">1.1.</span> <span class="toc-text">在windows下安装SVN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8Ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85SVN"><span class="toc-number">1.2.</span> <span class="toc-text">在Ubuntu下安装SVN</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SVN%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">SVN的基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%89%88%E6%9C%AC%E5%BA%93"><span class="toc-number">2.1.</span> <span class="toc-text">创建版本库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%89%88%E6%9C%AC%E5%BA%93"><span class="toc-number">2.2.</span> <span class="toc-text">启动版本库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%89%88%E6%9C%AC%E5%BA%93"><span class="toc-number">2.3.</span> <span class="toc-text">删除版本库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93%E4%B8%8E%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">配置多仓库与权限控制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93"><span class="toc-number">3.1.</span> <span class="toc-text">配置多仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6"><span class="toc-number">3.2.</span> <span class="toc-text">权限控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81svnserve-conf"><span class="toc-number">3.2.1.</span> <span class="toc-text">1、svnserve.conf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81passwd"><span class="toc-number">3.2.2.</span> <span class="toc-text">2、passwd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81authz"><span class="toc-number">3.2.3.</span> <span class="toc-text">3、authz</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E7%BB%A7%E6%89%BF"><span class="toc-number">3.3.</span> <span class="toc-text">权限继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#authz%E7%94%A8%E6%88%B7%E5%88%86%E7%BB%84"><span class="toc-number">3.3.1.</span> <span class="toc-text">authz用户分组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#authz%E7%89%88%E6%9C%AC%E5%BA%93%E8%B7%AF%E5%BE%84"><span class="toc-number">3.3.2.</span> <span class="toc-text">authz版本库路径</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#authz%E9%85%8D%E7%BD%AE%E7%9A%84%E5%85%B6%E4%BB%96%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">3.4.</span> <span class="toc-text">authz配置的其他注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%B6%E7%9B%AE%E5%BD%95%E7%9A%84r%E6%9D%83%E9%99%90%EF%BC%8C%E5%AF%B9%E5%AD%90%E7%9B%AE%E5%BD%95w%E6%9D%83%E9%99%90%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-number">3.4.1.</span> <span class="toc-text">父目录的r权限，对子目录w权限的影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E6%9D%83%E9%99%90"><span class="toc-number">3.4.2.</span> <span class="toc-text">默认权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AA%E8%AF%BBr%E6%9D%83%E9%99%90%E7%9A%84%E5%89%AF%E4%BD%9C%E7%94%A8"><span class="toc-number">3.4.3.</span> <span class="toc-text">只读r权限的副作用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/algorithm/%E6%95%B0%E4%BD%8DDP/" title="数位DP"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/assets/lanyangyang_20240114235127.png?_r_=41cb65a8-288f-2e37-e091-28e37f7db79d" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数位DP"/></a><div class="content"><a class="title" href="/2024/01/17/algorithm/%E6%95%B0%E4%BD%8DDP/" title="数位DP">数位DP</a><time datetime="2024-01-17T15:16:33.000Z" title="发表于 2024-01-17 23:16:33">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/svn/svn%E4%BB%93%E5%BA%93%E7%9B%AE%E5%BD%95%E8%AF%A6%E8%A7%A3/" title="svn仓库目录详解"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/post/svn/20240117160237.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="svn仓库目录详解"/></a><div class="content"><a class="title" href="/2024/01/16/svn/svn%E4%BB%93%E5%BA%93%E7%9B%AE%E5%BD%95%E8%AF%A6%E8%A7%A3/" title="svn仓库目录详解">svn仓库目录详解</a><time datetime="2024-01-16T09:01:12.000Z" title="发表于 2024-01-16 17:01:12">2024-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/14/svn/TortoiseSVN%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="TortoiseSVN基本使用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/post/svn/20240114233756.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TortoiseSVN基本使用"/></a><div class="content"><a class="title" href="/2024/01/14/svn/TortoiseSVN%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="TortoiseSVN基本使用">TortoiseSVN基本使用</a><time datetime="2024-01-14T15:24:59.000Z" title="发表于 2024-01-14 23:24:59">2024-01-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/12/svn/svn%E5%85%A5%E9%97%A8/" title="svn入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/post/svn/20240112194936.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="svn入门"/></a><div class="content"><a class="title" href="/2024/01/12/svn/svn%E5%85%A5%E9%97%A8/" title="svn入门">svn入门</a><time datetime="2024-01-12T11:31:15.000Z" title="发表于 2024-01-12 19:31:15">2024-01-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/01/hexo/npm%E5%9B%BE%E5%BA%8A%E4%BD%BF%E7%94%A8/" title="npm图床使用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/post/npm/npm%E7%9A%84%E4%BD%BF%E7%94%A8/20240103204301.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="npm图床使用"/></a><div class="content"><a class="title" href="/2024/01/01/hexo/npm%E5%9B%BE%E5%BA%8A%E4%BD%BF%E7%94%A8/" title="npm图床使用">npm图床使用</a><time datetime="2024-01-01T15:44:25.000Z" title="发表于 2024-01-01 23:44:25">2024-01-01</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2024 By <a class="footer-bar-link" href="/" title="Xiao Yun" target="_blank">Xiao Yun</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">3</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://beistu.xyz/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/assets/avatar.jpg" alt="博客"/><span class="back-menu-item-text">博客</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/lqyspace" title="GitHub"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/npm/lqyspace-assets/assets/avatar.jpg" alt="GitHub"/><span class="back-menu-item-text">GitHub</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://emojipedia.org/zh" title="Emojipedia"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2021/01/15/d439ba7842564.png" alt="Emojipedia"/><span class="back-menu-item-text">Emojipedia</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://getemoji.com/" title="GeteMoji"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2021/01/15/c37a625de51f1.png" alt="GeteMoji"/><span class="back-menu-item-text">GeteMoji</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://emotion.xiaokang.me/" title="表情包速查"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2021/01/15/fceedf2b7a79f.png" alt="表情包速查"/><span class="back-menu-item-text">表情包速查</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/algorithm/"><i class="anzhiyufont anzhiyu-icon-dice-d20 faa-tada" style="font-size: 0.9em;"></i><span> 算法刷题</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/hexo/" style="font-size: 0.88rem;">hexo<sup>1</sup></a><a href="/tags/npm/" style="font-size: 0.88rem;">npm<sup>1</sup></a><a href="/tags/svn/" style="font-size: 0.88rem;">svn<sup>3</sup></a><a href="/tags/%E6%95%B0%E4%BD%8DDP/" style="font-size: 0.88rem;">数位DP<sup>1</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.12",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Xiao Yun 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
