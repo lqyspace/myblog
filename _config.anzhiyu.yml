@@ -26,12 +26,12 @@ menu:
 nav:
   enable: true
   travelling: true
-  clock: false # 是否开启左侧的和风天气
+  clock: true # 是否开启左侧的和风天气
   menu:
     - title: 网页
       item:
         - name: 博客
-          link: https://beistu.xyz/
+          link: https://beistu.xyz/myblog
           icon: https://cdn.jsdelivr.net/npm/lqyspace-assets/assets/avatar.jpg
         - name: GitHub
           link: https://github.com/lqyspace
@@ -1242,7 +1242,7 @@ rightClickMenu:
 # 首页随便逛逛people模式 而非技能点模式，关闭后为技能点模式需要配置creativity.yml
 peoplecanvas:
   enable: false
-  img: https://upload-bbs.miyoushe.com/upload/2023/09/03/125766904/ee23df8517f3c3e3efc4145658269c06_5714860933110284659.png
+  img: https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png
 
 # 动效
 dynamicEffect:

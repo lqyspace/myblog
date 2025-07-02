@@ -9,4 +9,5 @@ top_img:
 cover:
 comments: false
 aside: true
+updated: mtime
 ---
