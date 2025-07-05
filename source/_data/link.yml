@@ -1,4 +1,5 @@
-- class_name: 框架
+- class_name: 🎸 实用的框架
+  class_desc: 你可以从下面的内容中得到与本博客一样的主题以及相关的实现方案
   flink_style: flexcard
   hundredSuffix: ""
   link_list:
@@ -12,7 +13,7 @@
       descr: 生活明朗，万物可爱
       siteshot: https://npm.elemecdn.com/anzhiyu-theme-static@1.1.6/img/blog.anheyu.com.jpg
 
-- class_name: 推荐博客
+- class_name: 🎯 推荐的博客
   flink_style: telescopic
   hundredSuffix: ""
   link_list:
