@@ -43,13 +43,13 @@ nav:
           icon: https://image.anheyu.com/favicon.ico
         - name: Emojipedia
           link: https://emojipedia.org/zh
-          icon: https://bu.dusays.com/2021/01/15/d439ba7842564.png
+          icon: https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/Cute-Emoji/015.png
         - name: GeteMoji
           link: https://getemoji.com/
-          icon: https://bu.dusays.com/2021/01/15/c37a625de51f1.png
+          icon: https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/Cute-Emoji/012.png
         - name: 表情包速查
           link: https://emotion.xiaokang.me/
-          icon: https://bu.dusays.com/2021/01/15/fceedf2b7a79f.png
+          icon: https://twikoo-magic.oss-cn-hangzhou.aliyuncs.com/Cute-Emoji/020.png
 
 
 # mourn （哀悼日，指定日期网站简单变灰，不包括滚动条）
@@ -89,7 +89,7 @@ social:
 author_status:
   enable: true
   # 可以是任何图片，建议放表情包或者emoji图片，效果都很好，[表情包速查](https://emotion.xiaokang.me/)
-  statusImg: "https://bu.dusays.com/2021/01/15/eee46d6d5a9a7.png"
+  statusImg: "https://bu.dusays.com/2021/01/15/3de5568861758.gif"
   skills:
     - 🤖️ 数码科技爱好者
     - 🔍 分享与热心帮助
@@ -163,7 +163,7 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: false # "background: url() top / cover no-repeat"
+index_img: false # "background: url(https://emotion.acs.pw/emotion/Marup/001.png) top / cover no-repeat" 
 
 # If the banner of page not setting, it will show the top_img
 default_top_img: false
@@ -253,7 +253,7 @@ post_copyright:
   enable: true
   decode: false
   author_href:
-  location: 辽宁
+  location: 北京
   license: CC BY-NC-SA 4.0
   license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
   avatarSinks: false # hover时头像下沉
@@ -435,7 +435,7 @@ footer:
   custom_text:
   runtime:
     enable: false
-    launch_time: 04/01/2021 00:00:00 # 网站上线时间
+    launch_time: 04/01/2024 00:00:00 # 网站上线时间
     work_img: https://npm.elemecdn.com/anzhiyu-blog@2.0.4/img/badge/安知鱼-上班摸鱼中.svg
     work_description: 距离月入25k也就还差一个大佬带我~
     offduty_img: https://npm.elemecdn.com/anzhiyu-blog@2.0.4/img/badge/安知鱼-下班啦.svg
@@ -810,7 +810,7 @@ preloader:
   # else all
   source: 3
   # pace theme (see https://codebyzach.github.io/pace/)
-  pace_css_url:
+  pace_css_url:  # https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css
   avatar: https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg # 自定加载动画义头像
 
 # aside (侧边栏)
@@ -880,7 +880,7 @@ busuanzi:
 # Formal: Month/Day/Year Time or Year/Month/Day Time
 runtimeshow:
   enable: true
-  publish_date: 4/1/2021 00:00:00
+  publish_date: 4/1/2024 00:00:00
 
 # Console - Newest Comments
 newest_comments:
