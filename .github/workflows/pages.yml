@@ -31,6 +31,8 @@ jobs:
         run: npm install
       - name: Install Hexo CLI
         run: npm install -g hexo-cli
+      - name: Clear the cache
+        run: hexo clear
       - name: Generate static pages
         run: hexo generate
       - name: Upload GitHub Pages artifact
