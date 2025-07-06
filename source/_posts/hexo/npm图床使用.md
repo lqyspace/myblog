@@ -186,7 +186,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 ```
 
-5、在本地的`[AssetsRepo]`文件夹下打开终端，运行以下指令，上传新增内容至github，即可出发部署。
+5、在本地的`[AssetsRepo]`文件夹下打开终端，运行以下指令，上传新增内容至github，即可触发部署。
 
 ```bash
 # 将更改提交
