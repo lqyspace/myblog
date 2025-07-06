@@ -31,6 +31,12 @@ jobs:
         run: npm install
       - name: Install Hexo CLI
         run: npm install -g hexo-cli
+      - name: Install theme dependencies
+        run: | 
+          npm install hexo-butterfly-tag-plugins-plus hexo-deployer-git --save
+          npm install hexo-generator-archive hexo-generator-category hexo-generator-index --save
+          npm install hexo-generator-tag hexo-renderer-ejs hexo-renderer-kramed ---save
+          npm install hexo-renderer-pug hexo-renderer-stylus hexo-wordcount --save
       - name: Clear the cache
         run: hexo clear
       - name: Generate static pages
